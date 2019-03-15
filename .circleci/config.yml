@@ -12,7 +12,7 @@
     #working_directory: ~/repo
 
     steps:
-      - run: sudo apt-get php7.2-ext php7.2-dom
+#      - run: sudo apt-get php7.2-ext php7.2-dom
 #      - run:
 #          name: Install PHP Extensions
 #          command: sudo docker-php-ext-install gd exif
