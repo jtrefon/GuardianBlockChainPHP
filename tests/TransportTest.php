@@ -19,4 +19,10 @@ public function testNewWallet(): void {
     $this->assertEquals("0f125463d0af398eb9deaa424d1c091e30885fed2ea0256d7b5884c19339b616",$response->walletId);
     $this->assertNotEmpty($response->publicKey);
 }
+    public function testHistory(): void {
+        $transport = new TransportService();
+        $response = $transport->GetHistory("0f125463d0af398eb9deaa424d1c091e30885fed2ea0256d7b5884c19339b616");
+        $this->assertIsArray($response);
+    }
+
 }

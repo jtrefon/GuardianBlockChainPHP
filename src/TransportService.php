@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace guardiansdk;
 
@@ -33,7 +33,8 @@ class TransportService
         return $this->parseBalance($response);
     }
 
-    private function parseBalance(ResponseInterface $response): BalanceModel {
+    private function parseBalance(ResponseInterface $response): BalanceModel
+    {
         $responseObject = json_decode(
             $response->getBody()->getContents()
         );
@@ -42,8 +43,9 @@ class TransportService
         return $balance;
     }
 
-    public function GetWalletAddress(string $publicKey) : WalletModel {
-        $response = $this->client->post("wallet",[
+    public function GetWalletAddress(string $publicKey): WalletModel
+    {
+        $response = $this->client->post("wallet", [
             'debug' => $this->debug,
             'body' => \GuzzleHttp\json_encode(new WalletModel($publicKey)),
             'headers' => [
@@ -54,8 +56,9 @@ class TransportService
         return $this->parseWallet($response);
     }
 
-    private function parseWallet(ResponseInterface $response): WalletModel {
-        $responseObject = json_decode(
+    private function parseWallet(ResponseInterface $response): WalletModel
+    {
+        $responseObject = \GuzzleHttp\json_decode(
             $response->getBody()->getContents()
         );
         $wallet = new WalletModel();
@@ -64,4 +67,17 @@ class TransportService
         return $wallet;
     }
 
+    public function GetHistory(string $wallet): array
+    {
+        $response = $this->client->get("transaction/" . $wallet, [
+            'debug' => $this->debug,
+            'body' => null,
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ]
+        ]);
+        return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+    }
 }
+
