@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace guardiansdk;
-
 
 class HistoryModel
 {
@@ -12,13 +12,17 @@ class HistoryModel
     public $to;
     public $id;
 
-    public function __construct(float $amount = null, string $dateTime = null, string $from = null, string $to = null, string $id = null)
-    {
+    public function __construct(
+        float $amount = null,
+        string $dateTime = null,
+        string $from = null,
+        string $to = null,
+        string $id = null
+    ) {
         $this->amount = $amount;
         $this->dateTime = $dateTime;
         $this->from = $from;
         $this->to = $to;
         $this->id = $id;
     }
-
 }

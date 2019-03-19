@@ -15,18 +15,18 @@ class CryptoTest extends TestCase
 
 
     public function testNewKeyPair(): void {
-        $this->crypto->GenerateNewSet();
-        $this->assertNotEmpty($this->crypto->GetPrivateKey());
-        $this->assertNotEmpty($this->crypto->GetPublicKey());
+        $this->crypto->generateNewSet();
+        $this->assertNotEmpty($this->crypto->getPrivateKey());
+        $this->assertNotEmpty($this->crypto->getPublicKey());
     }
 
     public function testSignature(): void {
-        $this->crypto->GenerateNewSet();
+        $this->crypto->generateNewSet();
         $payload = "This is a simple test";
-        $signature = $this->crypto->Sign($this->crypto->GetPrivateKey(), $payload);
+        $signature = $this->crypto->sign($this->crypto->getPrivateKey(), $payload);
         $this->assertNotEmpty($signature);
         $this->assertTrue(
-            $this->crypto->Verify($this->crypto->GetPublicKey(),$signature,$payload)
+            $this->crypto->verify($this->crypto->getPublicKey(),$signature,$payload)
         );
     }
 }
