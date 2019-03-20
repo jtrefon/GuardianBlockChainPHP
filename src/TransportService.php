@@ -7,9 +7,6 @@ namespace guardiansdk;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * Class TransportService.
- */
 class TransportService
 {
     protected $client;
@@ -31,7 +28,8 @@ class TransportService
     }
 
     /**
-     * GetBalance - runs call to blockchain to request current balance for given wallet address.
+     * GetBalance - runs call to blockchain
+     * to request current balance for given wallet address.
      *
      * @param string $wallet
      *
@@ -111,7 +109,8 @@ class TransportService
             $this->getHeaders()
         );
 
-        return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        return \GuzzleHttp\json_decode(
+            $response->getBody()->getContents(), true);
     }
 
     /**

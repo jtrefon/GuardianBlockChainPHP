@@ -26,10 +26,16 @@ class CryptoTest extends TestCase
         $signature = $this->crypto->sign($this->crypto->getPrivateKey(), $payload);
         $this->assertNotEmpty($signature);
         $this->assertTrue(
-            $this->crypto->verify($this->crypto->getPublicKey(),$signature,$payload)
+            $this->crypto->verify(
+                $this->crypto->getPublicKey(),
+                $signature,$payload
+            )
         );
         $this->assertFalse(
-            $this->crypto->verify($this->crypto->getPublicKey(),$signature,$payload."x")
+            $this->crypto->verify(
+                $this->crypto->getPublicKey(),
+                $signature,$payload."x"
+            )
         );
     }
 }
