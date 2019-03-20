@@ -110,7 +110,9 @@ class TransportService
         );
 
         return \GuzzleHttp\json_decode(
-            $response->getBody()->getContents(), true);
+            $response->getBody()->getContents(),
+            true
+        );
     }
 
     /**

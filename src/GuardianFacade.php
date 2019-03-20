@@ -19,9 +19,11 @@ class GuardianFacade
 
     /**
      * RSA Key pair generator
+     *
      * @return KeyPairModel
      */
-    public function getKeyPair(): KeyPairModel {
+    public function getKeyPair(): KeyPairModel
+    {
         $this->crypto->generateNewSet();
         return new KeyPairModel(
             $this->crypto->getPrivateKey(),
@@ -46,7 +48,7 @@ class GuardianFacade
         string $publicKey,
         string $privateKey
     ): TransactionResponseModel {
-    return $this->transaction->transact($from,$to,$amount,$publicKey,$privateKey);
+        return $this->transaction->transact($from, $to, $amount, $publicKey, $privateKey);
     }
 
     /**

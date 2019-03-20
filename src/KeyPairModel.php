@@ -2,7 +2,6 @@
 
 namespace guardiansdk;
 
-
 class KeyPairModel
 {
     public $privateKey;

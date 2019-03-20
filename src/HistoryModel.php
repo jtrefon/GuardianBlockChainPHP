@@ -13,11 +13,11 @@ class HistoryModel
     public $id;
 
     public function __construct(
-        float $amount=null,
-        string $dateTime=null,
-        string $from=null,
-        string $to=null,
-        string $id=null
+        float $amount = null,
+        string $dateTime = null,
+        string $from = null,
+        string $to = null,
+        string $id = null
     ) {
         $this->amount = $amount;
         $this->dateTime = $dateTime;
