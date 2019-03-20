@@ -11,6 +11,7 @@ class EnvelopeModel
     /**
      * EnvelopeModel constructor.
      * Model Saturator
+     *
      * @param string $PublicKey
      * @param string $Signature
      * @param string $Transaction

@@ -2,7 +2,6 @@
 
 namespace guardiansdk;
 
-
 class TransactionService
 {
     protected $transport;
@@ -16,15 +15,21 @@ class TransactionService
 
     /**
      * Executes transaction on blockchain
-     * @param string $from
-     * @param string $to
-     * @param float $amount
-     * @param string $publicKey
-     * @param string $privateKey
+     *
+     * @param  string $from
+     * @param  string $to
+     * @param  float  $amount
+     * @param  string $publicKey
+     * @param  string $privateKey
      * @return TransactionResponseModel
      */
-    public function transact(string $from, string $to, float $amount, string $publicKey, string $privateKey): TransactionResponseModel
-    {
+    public function transact(
+        string $from,
+        string $to,
+        float $amount,
+        string $publicKey,
+        string $privateKey
+    ): TransactionResponseModel {
         $transaction = base64_encode(json_encode(new TransactionModel($from, $to, $amount)));
         return $this->transport->sendTransaction(
             new EnvelopeModel(

@@ -49,7 +49,8 @@ class TransportService
 
     /**
      * Parses response into Balance model
-     * @param ResponseInterface $response
+     *
+     * @param  ResponseInterface $response
      * @return BalanceModel
      */
     protected function parseBalance(ResponseInterface $response): BalanceModel
@@ -65,7 +66,8 @@ class TransportService
 
     /**
      * Requests wallet address from Blockchain providing public key
-     * @param string $publicKey
+     *
+     * @param  string $publicKey
      * @return WalletModel
      */
     public function getWalletAddress(string $publicKey): WalletModel
@@ -80,7 +82,8 @@ class TransportService
 
     /**
      * Parses http response into Wallet model
-     * @param ResponseInterface $response
+     *
+     * @param  ResponseInterface $response
      * @return WalletModel
      */
     protected function parseWallet(ResponseInterface $response): WalletModel
@@ -97,7 +100,8 @@ class TransportService
 
     /**
      * Retrieves History for given wallet
-     * @param string $wallet
+     *
+     * @param  string $wallet
      * @return array
      */
     public function getHistory(string $wallet): array
@@ -112,7 +116,8 @@ class TransportService
 
     /**
      * Sets headers for API call
-     * @param string|null $body
+     *
+     * @param  string|null $body
      * @return array
      */
     protected function getHeaders(string $body = null): array
@@ -129,10 +134,12 @@ class TransportService
 
     /**
      * Executes transaction on Blockchain
-     * @param EnvelopeModel $envelope
+     *
+     * @param  EnvelopeModel $envelope
      * @return TransactionResponseModel
      */
-    public function sendTransaction(EnvelopeModel $envelope): TransactionResponseModel {
+    public function sendTransaction(EnvelopeModel $envelope): TransactionResponseModel
+    {
         $response = $this->client->post(
             'transaction',
             $this->getHeaders(\GuzzleHttp\json_encode($envelope))
@@ -142,10 +149,12 @@ class TransportService
 
     /**
      * Parses Transaction response into saturated model
-     * @param ResponseInterface $response
+     *
+     * @param  ResponseInterface $response
      * @return TransactionResponseModel
      */
-    protected function parseTransaction(ResponseInterface $response): TransactionResponseModel {
+    protected function parseTransaction(ResponseInterface $response): TransactionResponseModel
+    {
         $responseObject = \GuzzleHttp\json_decode(
             $response->getBody()->getContents()
         );
