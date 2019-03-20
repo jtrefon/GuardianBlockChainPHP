@@ -28,5 +28,8 @@ class CryptoTest extends TestCase
         $this->assertTrue(
             $this->crypto->verify($this->crypto->getPublicKey(),$signature,$payload)
         );
+        $this->assertFalse(
+            $this->crypto->verify($this->crypto->getPublicKey(),$signature,$payload."x")
+        );
     }
 }

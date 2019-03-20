@@ -24,8 +24,8 @@ class TransportService
     {
         $this->client = new Client(
             [
-            'base_uri' => $this->server,
-            'timeout' => 3.0,
+                'base_uri' => $this->server,
+                'timeout' => 3.0,
             ]
         );
     }
@@ -40,21 +40,19 @@ class TransportService
     public function getBalance(string $wallet): BalanceModel
     {
         $response = $this->client->get(
-            'wallet/'.$wallet,
-            [
-            'debug' => $this->debug,
-            'body' => null,
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ],
-            ]
+            'wallet/' . $wallet,
+            $this->getHeaders()
         );
 
         return $this->parseBalance($response);
     }
 
-    private function parseBalance(ResponseInterface $response): BalanceModel
+    /**
+     * Parses response into Balance model
+     * @param ResponseInterface $response
+     * @return BalanceModel
+     */
+    protected function parseBalance(ResponseInterface $response): BalanceModel
     {
         $responseObject = json_decode(
             $response->getBody()->getContents()
@@ -65,24 +63,27 @@ class TransportService
         return $balance;
     }
 
+    /**
+     * Requests wallet address from Blockchain providing public key
+     * @param string $publicKey
+     * @return WalletModel
+     */
     public function getWalletAddress(string $publicKey): WalletModel
     {
         $response = $this->client->post(
             'wallet',
-            [
-            'debug' => $this->debug,
-            'body' => \GuzzleHttp\json_encode(new WalletModel($publicKey)),
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ],
-            ]
+            $this->getHeaders(\GuzzleHttp\json_encode(new WalletModel($publicKey)))
         );
 
         return $this->parseWallet($response);
     }
 
-    private function parseWallet(ResponseInterface $response): WalletModel
+    /**
+     * Parses http response into Wallet model
+     * @param ResponseInterface $response
+     * @return WalletModel
+     */
+    protected function parseWallet(ResponseInterface $response): WalletModel
     {
         $responseObject = \GuzzleHttp\json_decode(
             $response->getBody()->getContents()
@@ -94,20 +95,60 @@ class TransportService
         return $wallet;
     }
 
+    /**
+     * Retrieves History for given wallet
+     * @param string $wallet
+     * @return array
+     */
     public function getHistory(string $wallet): array
     {
         $response = $this->client->get(
-            'transaction/'.$wallet,
-            [
+            'transaction/' . $wallet,
+            $this->getHeaders()
+        );
+
+        return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+    }
+
+    /**
+     * Sets headers for API call
+     * @param string|null $body
+     * @return array
+     */
+    protected function getHeaders(string $body = null): array
+    {
+        return [
             'debug' => $this->debug,
-            'body' => null,
+            'body' => $body,
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ],
-            ]
-        );
+        ];
+    }
 
-        return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+    /**
+     * Executes transaction on Blockchain
+     * @param EnvelopeModel $envelope
+     * @return TransactionResponseModel
+     */
+    public function sendTransaction(EnvelopeModel $envelope): TransactionResponseModel {
+        $response = $this->client->post(
+            'transaction',
+            $this->getHeaders(\GuzzleHttp\json_encode($envelope))
+        );
+        return $this->parseTransaction($response);
+    }
+
+    /**
+     * Parses Transaction response into saturated model
+     * @param ResponseInterface $response
+     * @return TransactionResponseModel
+     */
+    protected function parseTransaction(ResponseInterface $response): TransactionResponseModel {
+        $responseObject = \GuzzleHttp\json_decode(
+            $response->getBody()->getContents()
+        );
+        return new TransactionResponseModel($responseObject->transactionId);
     }
 }
