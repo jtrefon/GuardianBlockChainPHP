@@ -34,21 +34,27 @@ class GuardianFacade
     /**
      * Executes transaction on blockchain
      *
-     * @param  string $from
-     * @param  string $to
+     * @param  string $fromAddress
+     * @param  string $toAddress
      * @param  float  $amount
      * @param  string $publicKey
      * @param  string $privateKey
      * @return TransactionResponseModel
      */
     public function sendTransaction(
-        string $from,
-        string $to,
+        string $fromAddress,
+        string $toAddress,
         float $amount,
         string $publicKey,
         string $privateKey
     ): TransactionResponseModel {
-        return $this->transaction->transact($from, $to, $amount, $publicKey, $privateKey);
+        return $this->transaction->transact(
+            $fromAddress, 
+            $toAddress, 
+            $amount, 
+            $publicKey, 
+            $privateKey
+        );
     }
 
     /**
