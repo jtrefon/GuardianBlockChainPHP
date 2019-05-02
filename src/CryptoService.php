@@ -75,7 +75,7 @@ class CryptoService
         string $signature,
         string $payload
     ): bool {
-        $res = openssl_verify($payload, $signature, $pubkey);
+        $res = openssl_verify($payload, $signature, $pubkey, OPENSSL_ALGO_SHA256);
 
         return 1 === $res;
     }
