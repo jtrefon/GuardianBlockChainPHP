@@ -1,5 +1,5 @@
 {
-  "name": "JTMG/GuardianSDKPHP",
+  "name": "jtmg/guardiansdkphp",
   "type": "library",
   "description": "This is PHP SDK for Guardian Blockchain",
   "keywords": ["SDK","blockchain","PHP"],
