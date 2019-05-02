@@ -57,8 +57,7 @@ class CryptoService
      */
     public function sign(string $privkey, $payload): string
     {
-        openssl_sign($payload, $signature, $privkey);
-
+        openssl_sign($payload, $signature, $privkey, OPENSSL_ALGO_SHA256);
         return $signature;
     }
 
@@ -76,7 +75,7 @@ class CryptoService
         string $signature,
         string $payload
     ): bool {
-        $res = openssl_verify($payload, $signature, $pubkey);
+        $res = openssl_verify($payload, $signature, $pubkey, OPENSSL_ALGO_SHA256);
 
         return 1 === $res;
     }
