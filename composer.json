@@ -1,4 +1,18 @@
 {
+  "name": "JTMG/GuardianSDKPHP",
+  "type": "library",
+  "description": "This is PHP SDK for Guardian Blockchain",
+  "keywords": ["SDK","blockchain","PHP"],
+  "homepage": "http://guardianbc.com",
+  "license": "GPL3",
+  "authors": [
+      {
+          "name": "Jacek Trefon",
+          "email": "jack@trefon.com",
+          "homepage": "http://www.trefon.com",
+          "role": "Developer"
+      }
+  ],
   "scripts": {
     "tests": "phpunit --bootstrap vendor/autoload.php --testdox tests",
     "lint": "phpcs --standard=PSR2 src/",
