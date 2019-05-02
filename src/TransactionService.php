@@ -30,11 +30,11 @@ class TransactionService
         string $publicKey,
         string $privateKey
     ): TransactionResponseModel {
-        $transaction = base64_encode(json_encode(new TransactionModel($from, $to, $amount)));
+        $transaction = base64_encode(json_encode(new TransactionModel($from, $to, (string)$amount)));
         return $this->transport->sendTransaction(
             new EnvelopeModel(
                 $publicKey,
-                $this->crypto->sign($privateKey, $transaction),
+                base64_encode($this->crypto->sign($privateKey, $transaction)),
                 $transaction
             )
         );
