@@ -49,10 +49,10 @@ class GuardianFacade
         string $privateKey
     ): TransactionResponseModel {
         return $this->transaction->transact(
-            $fromAddress, 
-            $toAddress, 
-            $amount, 
-            $publicKey, 
+            $fromAddress,
+            $toAddress,
+            $amount,
+            $publicKey,
             $privateKey
         );
     }
