@@ -4,7 +4,7 @@
   "description": "This is PHP SDK for Guardian Blockchain",
   "keywords": ["SDK","blockchain","PHP"],
   "homepage": "http://guardianbc.com",
-  "license": "GPL3",
+  "license": "GPL-3.0-or-later",
   "authors": [
       {
           "name": "Jacek Trefon",
