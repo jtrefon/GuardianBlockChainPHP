@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use guardiansdk\AuthEnvelopeModel;
 use guardiansdk\AuthService;
+use guardiansdk\AuthTransportService;
 use guardiansdk\KeyPayloadModel;
 use PHPUnit\Framework\TestCase;
 
@@ -38,6 +40,19 @@ class AuthTest extends TestCase
         $this->assertEquals($decrypted, $this->getMockedPayload());
     }
 
+    public function testPersistWallet():void
+    {
+        $user = "TestUser";
+        $password = "TestPassword!";
+        $transport = new AuthTransportService();
+        $envelope = new AuthEnvelopeModel();
+        $envelope->Payload = $this->auth->encryptPayload($this->getMockedPayload(), $password);
+        $envelope->Address = $this->auth->getAddress($user, $password);
+        $response = $transport->persistWallet($envelope);
+        $this->assertEquals("Success", $response->Status);
+        $this->assertEquals($this->auth->getAddress($user, $password), $response->Address);
+    }
+
     protected function getMockedPayload(): KeyPayloadModel
     {
         $payload = new KeyPayloadModel();
@@ -46,5 +61,4 @@ class AuthTest extends TestCase
         $payload->Public = "Public";
         return $payload;
     }
-
 }
