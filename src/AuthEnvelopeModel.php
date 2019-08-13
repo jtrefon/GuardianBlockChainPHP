@@ -5,6 +5,6 @@ namespace guardiansdk;
 
 class AuthEnvelopeModel
 {
-    public $Address;
-    public $Payload;
+    public $address;
+    public $key;
 }

@@ -46,12 +46,23 @@ class AuthTest extends TestCase
         $password = "TestPassword!";
         $transport = new AuthTransportService();
         $envelope = new AuthEnvelopeModel();
-        $envelope->Payload = $this->auth->encryptPayload($this->getMockedPayload(), $password);
-        $envelope->Address = $this->auth->getAddress($user, $password);
+        $envelope->key = $this->auth->encryptPayload($this->getMockedPayload(), $password);
+        $envelope->address = $this->auth->getAddress($user, $password);
         $response = $transport->persistWallet($envelope);
-        $this->assertEquals("Success", $response->Status);
-        $this->assertEquals($this->auth->getAddress($user, $password), $response->Address);
+        $this->assertEquals($envelope->address, $response->address);
     }
+
+    public function testAuthenticating(): void
+    {
+        $envelope = new AuthEnvelopeModel();
+        $envelope->key = "keyaddress";
+        $envelope->address = "address";
+        $transport = new AuthTransportService();
+        $transport->persistWallet($envelope);
+        $response = $transport->getKey($envelope->address);
+        $this->assertEquals($envelope->key, $response->key);
+    }
+
 
     protected function getMockedPayload(): KeyPayloadModel
     {
