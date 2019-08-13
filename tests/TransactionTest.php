@@ -17,11 +17,12 @@ class TransactionTest extends TestCase
         $this->transaction = new TransactionService();
     }
 
-    public function testDefault(): void {
+    public function testDefault(): void
+    {
         $this->assertNotEmpty($this->transaction);
     }
 
-// provide valid keys and uncomment this test
+    // provide valid keys and uncomment this test
 //    public function testTransaction(): void {
 //        $response = $this->transaction->transact(
 //            $this->from,

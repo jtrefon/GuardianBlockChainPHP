@@ -6,6 +6,9 @@ namespace guardiansdk;
 
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class TransportService
 {
@@ -25,6 +28,14 @@ class TransportService
                 'timeout' => 3.0,
             ]
         );
+    }
+
+    /***
+     * Enables Debugging for testing purposes
+     */
+    public function enableDebug(): void
+    {
+        $this->debug = true;
     }
 
     /**
@@ -53,13 +64,12 @@ class TransportService
      */
     protected function parseBalance(ResponseInterface $response): BalanceModel
     {
-        $responseObject = json_decode(
-            $response->getBody()->getContents()
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        return $serializer->deserialize(
+            $response->getBody()->getContents(),
+            BalanceModel::class,
+            'json'
         );
-        $balance = new BalanceModel();
-        $balance->balance = $responseObject->balance;
-
-        return $balance;
     }
 
     /**
@@ -74,7 +84,6 @@ class TransportService
             'wallet',
             $this->getHeaders(\GuzzleHttp\json_encode(new WalletModel($publicKey)))
         );
-
         return $this->parseWallet($response);
     }
 
@@ -86,14 +95,12 @@ class TransportService
      */
     protected function parseWallet(ResponseInterface $response): WalletModel
     {
-        $responseObject = \GuzzleHttp\json_decode(
-            $response->getBody()->getContents()
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        return $serializer->deserialize(
+            $response->getBody()->getContents(),
+            WalletModel::class,
+            'json'
         );
-        $wallet = new WalletModel();
-        $wallet->publicKey = $responseObject->publicKey;
-        $wallet->walletId = $responseObject->walletId;
-
-        return $wallet;
     }
 
     /**
@@ -156,9 +163,11 @@ class TransportService
      */
     protected function parseTransaction(ResponseInterface $response): TransactionResponseModel
     {
-        $responseObject = \GuzzleHttp\json_decode(
-            $response->getBody()->getContents()
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        return $serializer->deserialize(
+            $response->getBody()->getContents(),
+            TransactionResponseModel::class,
+            'json'
         );
-        return new TransactionResponseModel($responseObject->transactionId);
     }
 }

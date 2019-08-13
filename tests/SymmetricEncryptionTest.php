@@ -17,8 +17,8 @@ class SymmetricEncryptionTest extends TestCase
 
     public function testEncryptionDecryption(): void
     {
-        $encrypted = $this->enc->Encrypt($this->message, $this->key);
-        $decrypted = $this->enc->Decrypt($encrypted, $this->key);
+        $encrypted = $this->enc->encrypt($this->message, $this->key);
+        $decrypted = $this->enc->decrypt($encrypted, $this->key);
         $this->assertEquals(
             $this->message,
             $decrypted

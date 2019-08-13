@@ -20,7 +20,7 @@ class AuthTest extends TestCase
         $username = "TestUserName";
         $password = "TestPassword123!";
         $expected = hash("sha256", $username.$password, false);
-        $this->assertEquals($expected, $this->auth->GetAddress($username, $password));
+        $this->assertEquals($expected, $this->auth->getAddress($username, $password));
     }
 
     public function testGetEncriptionPassowrd(): void
@@ -28,13 +28,13 @@ class AuthTest extends TestCase
         $username = "TestUserName";
         $password = "TestPassword123!";
         $expected = hash("sha512", $username.$password, false);
-        $this->assertEquals($expected, $this->auth->GetEncryptionKey($username, $password));
+        $this->assertEquals($expected, $this->auth->getEncryptionKey($username, $password));
     }
 
     public function testPayloadEncryptDecrypt(): void
     {
-        $encrypted = $this->auth->EncryptPayload($this->getMockedPayload(), "Password123!");
-        $decrypted = $this->auth->DecryptPayload($encrypted, "Password123!");
+        $encrypted = $this->auth->encryptPayload($this->getMockedPayload(), "Password123!");
+        $decrypted = $this->auth->decryptPayload($encrypted, "Password123!");
         $this->assertEquals($decrypted, $this->getMockedPayload());
     }
 
