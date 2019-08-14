@@ -28,7 +28,8 @@
   },
   "autoload": {
     "psr-4": {
-      "guardiansdk\\": "src/"
+      "guardiansdk\\": "src/",
+      "tests\\": "tests/"
     }
   },
   "require-dev": {

@@ -6,6 +6,7 @@ use guardiansdk\AuthService;
 use guardiansdk\AuthTransportService;
 use guardiansdk\KeyPayloadModel;
 use PHPUnit\Framework\TestCase;
+use tests\ConfigHelper;
 
 class AuthTest extends TestCase
 {
@@ -41,29 +42,30 @@ class AuthTest extends TestCase
         $decrypted = $this->auth->decryptPayload($encrypted, "Password123!");
         $this->assertEquals($decrypted, $this->getMockedPayload());
     }
-
-    public function testPersistWallet():void
-    {
-        $user = "TestUser";
-        $password = "TestPassword!";
-        $transport = new AuthTransportService();
-        $envelope = new AuthEnvelopeModel();
-        $envelope
-            ->setKey($this->auth->encryptPayload($this->getMockedPayload(), $password))
-            ->setAddress($this->auth->getAddress($user, $password));
-        $response = $transport->persistWallet($envelope);
-        $this->assertEquals($envelope->getAddress(), $response->getAddress());
-    }
-
-    public function testKeyRestore(): void
-    {
-        $envelope = new AuthEnvelopeModel();
-        $envelope->setKey("keyaddress")->setAddress("address");
-        $transport = new AuthTransportService();
-        $transport->persistWallet($envelope);
-        $response = $transport->getKey($envelope->getAddress());
-        $this->assertEquals($envelope->getKey(), $response->getPayload());
-    }
+    /// Uncoment for local tests
+//
+//    public function testPersistWallet():void
+//    {
+//        $user = "TestUser";
+//        $password = "TestPassword!";
+//        $transport = new AuthTransportService();
+//        $envelope = new AuthEnvelopeModel();
+//        $envelope
+//            ->setKey($this->auth->encryptPayload($this->getMockedPayload(), $password))
+//            ->setAddress($this->auth->getAddress($user, $password));
+//        $response = $transport->persistWallet($envelope);
+//        $this->assertEquals($envelope->getAddress(), $response->getAddress());
+//    }
+//
+//    public function testKeyRestore(): void
+//    {
+//        $envelope = new AuthEnvelopeModel();
+//        $envelope->setKey("keyaddress")->setAddress("address");
+//        $transport = new AuthTransportService();
+//        $transport->persistWallet($envelope);
+//        $response = $transport->getKey($envelope->getAddress());
+//        $this->assertEquals($envelope->getKey(), $response->getPayload());
+//    }
 
 
     protected function getMockedPayload(): KeyPayloadModel

@@ -7,10 +7,16 @@ namespace guardiansdk;
 class ConfigService
 {
     public $file = __DIR__."/config.ini";
+    private $config;
+
+    public function __construct()
+    {
+        $this->config = parse_ini_file($this->file);
+    }
 
     public function getUrl(): string
     {
-        $config = parse_ini_file($this->file);
-        return $config['url'];
+        return $this->config['url'];
     }
+
 }
