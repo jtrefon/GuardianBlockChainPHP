@@ -6,7 +6,7 @@ namespace guardiansdk;
 
 class ConfigService
 {
-    public $file = "config.ini";
+    public $file = __DIR__."/config.ini";
 
     public function getUrl(): string
     {

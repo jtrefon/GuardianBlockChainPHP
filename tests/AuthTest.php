@@ -25,7 +25,7 @@ class AuthTest extends TestCase
         $this->assertEquals($expected, $this->auth->getAddress($username, $password));
     }
 
-    public function testGetEncriptionPassowrd(): void
+    public function testGetEncryptionPassword(): void
     {
         $username = "TestUserName";
         $password = "TestPassword123!";
@@ -52,7 +52,7 @@ class AuthTest extends TestCase
         $this->assertEquals($envelope->address, $response->address);
     }
 
-    public function testAuthenticating(): void
+    public function testKeyRestore(): void
     {
         $envelope = new AuthEnvelopeModel();
         $envelope->key = "keyaddress";

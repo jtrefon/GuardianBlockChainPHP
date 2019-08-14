@@ -14,6 +14,32 @@ use Symfony\Component\Serializer\Serializer;
 
 class AuthService
 {
+    protected $keyPayload;
+    protected $authenticated = false;
+    protected $transport;
+
+    public function __construct()
+    {
+        $this->transport = new AuthTransportService();
+    }
+
+    public function authenticate(string $username, string $password): void
+    {
+        $encryptedKey = $this->transport->getKey(
+            $this->getAddress($username, $password)
+        );
+        if ($encryptedKey->status === "Error") {
+            $this->authenticated = false;
+            return;
+        }
+        $this->keyPayload = $this->decryptPayload(
+            $encryptedKey->payload,
+            $this->getEncryptionKey($username, $password)
+        );
+        $this->authenticated = true;
+    }
+
+
     /***
      * Makes sha256 hash out of concatenated username and password to be used as key address
      *
