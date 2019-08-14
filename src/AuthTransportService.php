@@ -19,7 +19,7 @@ class AuthTransportService extends TransportService
             'auth/'.$address,
             $this->getHeaders()
         );
-        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        $serializer = $this->getSerializer();
         return $serializer->deserialize(
             $response->getBody()->getContents(),
             AuthResponseModel::class,
@@ -33,15 +33,23 @@ class AuthTransportService extends TransportService
      */
     public function persistWallet(AuthEnvelopeModel $envelope): AuthCreateResponseModel
     {
+        $serializer = $this->getSerializer();
         $response = $this->client->post(
             'auth',
-            $this->getHeaders(\GuzzleHttp\json_encode($envelope))
+            $this->getHeaders($serializer->serialize($envelope, 'json'))
         );
-        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
         return $serializer->deserialize(
             $response->getBody()->getContents(),
             AuthCreateResponseModel::class,
             'json'
         );
+    }
+
+    /***
+     * @return Serializer
+     */
+    private function getSerializer(): Serializer
+    {
+        return new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
     }
 }

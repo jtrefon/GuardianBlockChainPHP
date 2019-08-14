@@ -1,4 +1,4 @@
-testMode = ; real - all calls will be executed against real blockchain | mock - tests will be mocked
+mock = ; true - all calls will be executed against real blockchain | false - tests will be mocked
 url = ; blockchain url if real mode is selected
 privateKey = ; private key for real tests to execute
 publicKey = ; public key for real tests to execute

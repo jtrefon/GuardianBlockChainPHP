@@ -10,10 +10,12 @@ use PHPUnit\Framework\TestCase;
 class AuthTest extends TestCase
 {
     protected $auth;
+    protected $config;
 
     protected function setUp()
     {
         $this->auth = new AuthService();
+        $this->config = ConfigHelper::getConfig();
     }
 
 
@@ -46,21 +48,21 @@ class AuthTest extends TestCase
         $password = "TestPassword!";
         $transport = new AuthTransportService();
         $envelope = new AuthEnvelopeModel();
-        $envelope->key = $this->auth->encryptPayload($this->getMockedPayload(), $password);
-        $envelope->address = $this->auth->getAddress($user, $password);
+        $envelope
+            ->setKey($this->auth->encryptPayload($this->getMockedPayload(), $password))
+            ->setAddress($this->auth->getAddress($user, $password));
         $response = $transport->persistWallet($envelope);
-        $this->assertEquals($envelope->address, $response->address);
+        $this->assertEquals($envelope->getAddress(), $response->getAddress());
     }
 
     public function testKeyRestore(): void
     {
         $envelope = new AuthEnvelopeModel();
-        $envelope->key = "keyaddress";
-        $envelope->address = "address";
+        $envelope->setKey("keyaddress")->setAddress("address");
         $transport = new AuthTransportService();
         $transport->persistWallet($envelope);
-        $response = $transport->getKey($envelope->address);
-        $this->assertEquals($envelope->key, $response->key);
+        $response = $transport->getKey($envelope->getAddress());
+        $this->assertEquals($envelope->getKey(), $response->getPayload());
     }
 
 
