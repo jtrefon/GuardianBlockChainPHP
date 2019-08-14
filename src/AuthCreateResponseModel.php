@@ -4,6 +4,7 @@ namespace guardiansdk;
 
 /***
  * Class AuthCreateResponseModel
+ *
  * @package guardiansdk
  */
 class AuthCreateResponseModel
@@ -21,7 +22,7 @@ class AuthCreateResponseModel
     }
 
     /**
-     * @param mixed $status
+     * @param  mixed $status
      * @return AuthCreateResponseModel
      */
     public function setStatus($status): AuthCreateResponseModel
@@ -39,7 +40,7 @@ class AuthCreateResponseModel
     }
 
     /**
-     * @param mixed $message
+     * @param  mixed $message
      * @return AuthCreateResponseModel
      */
     public function setMessage($message): AuthCreateResponseModel
@@ -57,7 +58,7 @@ class AuthCreateResponseModel
     }
 
     /**
-     * @param mixed $address
+     * @param  mixed $address
      * @return AuthCreateResponseModel
      */
     public function setAddress($address): AuthCreateResponseModel

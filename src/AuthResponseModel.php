@@ -17,7 +17,7 @@ class AuthResponseModel
     }
 
     /**
-     * @param mixed $status
+     * @param  mixed $status
      * @return AuthResponseModel
      */
     public function setStatus($status): AuthResponseModel
@@ -35,7 +35,7 @@ class AuthResponseModel
     }
 
     /**
-     * @param mixed $payload
+     * @param  mixed $payload
      * @return AuthResponseModel
      */
     public function setPayload($payload): AuthResponseModel
@@ -43,5 +43,4 @@ class AuthResponseModel
         $this->payload = $payload;
         return $this;
     }
-
 }

@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Serializer;
 class AuthTransportService extends TransportService
 {
     /**
-     * @param string $address
+     * @param  string $address
      * @return AuthResponseModel
      */
     public function getKey(string $address): AuthResponseModel
@@ -28,7 +28,7 @@ class AuthTransportService extends TransportService
     }
 
     /***
-     * @param AuthEnvelopeModel $envelope
+     * @param  AuthEnvelopeModel $envelope
      * @return AuthCreateResponseModel
      */
     public function persistWallet(AuthEnvelopeModel $envelope): AuthCreateResponseModel

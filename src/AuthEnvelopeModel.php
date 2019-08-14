@@ -17,7 +17,7 @@ class AuthEnvelopeModel
     }
 
     /**
-     * @param mixed $address
+     * @param  mixed $address
      * @return AuthEnvelopeModel
      */
     public function setAddress($address):AuthEnvelopeModel
@@ -35,7 +35,7 @@ class AuthEnvelopeModel
     }
 
     /**
-     * @param mixed $key
+     * @param  mixed $key
      * @return AuthEnvelopeModel
      */
     public function setKey($key):AuthEnvelopeModel
@@ -43,5 +43,4 @@ class AuthEnvelopeModel
         $this->key = $key;
         return $this;
     }
-
 }

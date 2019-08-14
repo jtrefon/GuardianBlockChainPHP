@@ -18,5 +18,4 @@ class ConfigService
     {
         return $this->config['url'];
     }
-
 }
