@@ -28,12 +28,12 @@ class AuthService
         $encryptedKey = $this->transport->getKey(
             $this->getAddress($username, $password)
         );
-        if ($encryptedKey->status === "Error") {
+        if ($encryptedKey->getStatus() === "Error") {
             $this->authenticated = false;
             return;
         }
         $this->keyPayload = $this->decryptPayload(
-            $encryptedKey->payload,
+            $encryptedKey->getPayload(),
             $this->getEncryptionKey($username, $password)
         );
         $this->authenticated = true;
