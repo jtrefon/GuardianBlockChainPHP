@@ -14,7 +14,7 @@ class TransportService
 {
     protected $client;
     protected $debug = false;
-    protected $server = 'http://prime.guardianbc.com/';
+    protected $server;
 
     /**
      * TransportService constructor.
@@ -22,6 +22,8 @@ class TransportService
      */
     public function __construct()
     {
+        $config = new ConfigService();
+        $this->server = $config->getUrl();
         $this->client = new Client(
             [
                 'base_uri' => $this->server,

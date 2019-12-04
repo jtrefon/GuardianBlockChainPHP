@@ -3,18 +3,27 @@ declare(strict_types=1);
 
 use guardiansdk\TransportService;
 use PHPUnit\Framework\TestCase;
+use tests\ConfigHelper;
 
 class TransportTest extends TestCase
 {
     private $transport;
+    /**
+     * @var array
+     */
+    private $config;
 
     public function setUp(): void
     {
         $this->transport = new TransportService();
+        $this->config = ConfigHelper::getConfig();
     }
 
     public function testBalance(): void
     {
+        if ($this->config["mock"]) {
+            return;
+        }
         $balance = $this->transport->getBalance(
             "10ca96ee75eef3e5aa242f64608cb4a67fed5395d925dec0679b89e4c010649a"
         );
@@ -23,6 +32,9 @@ class TransportTest extends TestCase
 
     public function testNewWallet(): void
     {
+        if ($this->config["mock"]) {
+            return;
+        }
         $response = $this->transport->getWalletAddress("asdasdsadsadsd");
         $this->assertEquals(
             "0f125463d0af398eb9deaa424d1c091e30885fed2ea0256d7b5884c19339b616",
@@ -33,21 +45,27 @@ class TransportTest extends TestCase
 
     public function testHistory(): void
     {
+        if ($this->config["mock"]) {
+            return;
+        }
         $response = $this->transport->getHistory(
             "0f125463d0af398eb9deaa424d1c091e30885fed2ea0256d7b5884c19339b616"
         );
         $this->assertIsArray($response);
     }
     ///provide valid envelope and uncoment for full unit coverage
-//    public function testTransaction(): void
-//    {
-//        $this->transport->enableDebug();
-//        $envelope = new \guardiansdk\EnvelopeModel(
-//            "",
-//            "",
-//            ""
-//        );
-//        $response = $this->transport->sendTransaction($envelope);
-//        $this->assertEquals(36, strlen($response->transactionId));
-//    }
+    public function testTransaction(): void
+    {
+        if ($this->config["mock"]) {
+            return;
+        }
+        $this->transport->enableDebug();
+        $envelope = new \guardiansdk\EnvelopeModel(
+            "",
+            "",
+            ""
+        );
+        $response = $this->transport->sendTransaction($envelope);
+        $this->assertEquals(36, strlen($response->transactionId));
+    }
 }
