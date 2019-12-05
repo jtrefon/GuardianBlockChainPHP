@@ -20,7 +20,7 @@
   },
   "require": {
     "guzzlehttp/guzzle": "^6.3",
-    "php": "7.2.0",
+    "php": "^7.2.0",
     "ext-openssl": "*",
     "ext-json": "*",
     "symfony/serializer": "^4.3",
